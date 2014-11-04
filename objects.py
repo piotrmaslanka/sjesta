@@ -59,7 +59,7 @@ class Job(object):
                                SET stdout=%s, stderr=%s, completed_on=%s, return_code=%s
                                WHERE id=%s''', 
                                     (self.stdout, self.stderr, self.completed_on,
-                                     self.return_code))
+                                     self.return_code, self.id))
             
                         
                         

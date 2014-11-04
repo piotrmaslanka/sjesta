@@ -1,4 +1,5 @@
 from threading import Thread
+from sjesta.objects import Job
 import shlex
 try:
     import subprocess32 as subprocess
@@ -25,7 +26,7 @@ class JobTrackerThread(Thread):
         if len(stdout) == 0: stdout = None
         if len(stderr) == 0: stderr = None
         
-        job.enter_state(Job.COMPLETED, po.returncode, stdout, stderr)
+        self.job.enter_state(Job.COMPLETED, po.returncode, stdout, stderr)
         self.master.decrease_job_counter()
         
         
