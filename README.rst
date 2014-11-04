@@ -10,6 +10,8 @@ It essentially runs programs, managing their arguments, return codes, stdin/stdo
 
 SJESTA was built for `SMOK <http://www.smok-serwis.pl/>`_ by `Piotr Maślanka <https://github.com/piotrmaslanka/>`_.
 
+SJESTA requires `satella <https://github.com/piotrmaslanka/satella/>`_ to be installed.
+
 Background
 ----------
 
