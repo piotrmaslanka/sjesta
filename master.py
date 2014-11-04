@@ -27,8 +27,7 @@ class SjestaThread(BaseThread, Monitor):
         
     @Monitor.protect
     def decrease_job_counter(self):
-        self.active_jobs_counter -= 1
-    
+        self.active_jobs_counter -= 1    
     
     def schedule_a_job(self):
         """True if anything was scheduled, else False"""
@@ -37,7 +36,7 @@ class SjestaThread(BaseThread, Monitor):
                            FROM jobs
                            WHERE started_at IS NULL
                            ORDER BY niceness ASC
-                           LIMIT 1'''
+                           LIMIT 1''')
             try:
                 id, = cur.fetchone()
             except TypeError:

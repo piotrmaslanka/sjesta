@@ -60,4 +60,4 @@ class SQLDB(object):
 
         self.cp = ConnectionPool(dd, 1)
 
-        SQLDB.i = cp
+        SQLDB.i = self.cp

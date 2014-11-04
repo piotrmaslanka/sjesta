@@ -1,9 +1,9 @@
 {
-	'db_host': 'database_host',
-	'db_user': 'database_user',
-	'db_port': 5432,
-	'db_password': 'somepassword',
-    'db_name': 'dbname',
-	'max_concurrent_jobs': 2,
-	'scan_interval': 10
+	"db_host": "database_host",
+	"db_user": "database_user",
+	"db_port": 5432,
+	"db_password": "somepassword",
+    "db_name": "dbname",
+	"max_concurrent_jobs": 2,
+	"scan_interval": 10
 }

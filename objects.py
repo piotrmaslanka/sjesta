@@ -16,14 +16,14 @@ class Job(object):
                                   return_code, description, started_at,
                                   stdin, stdout, stderr, program, niceness
                            FROM jobs
-                           WHERE id=%s''', (id, )
+                           WHERE id=%s''', (id, ))
             try:
                 self.scheduled_by, self.scheduled_at, self.completed_on, \
                 self.return_code, self.description, self.started_at, \
                 self.stdin, self.stdout, self.stderr, \
                 self.program, self.niceness = cur.fetchone()
             except TypeError:
-                raise Job.DoesNotExist:
+                raise Job.DoesNotExist
                         
     def get_stdin_data(self):
         """Returns stdin data or None if no stdin"""
@@ -69,11 +69,11 @@ class Dataset(object):
     def __init__(self, id):
         self.id = id
         with SQLDB.i.transaction() as cur:
-            cur.execute('SELECT data FROM datasets WHERE id=%s', (id, )
+            cur.execute('SELECT data FROM datasets WHERE id=%s', (id, ))
             try:
                 self.data, = cur.fetchone()
             except TypeError:
-                raise Dataset.DoesNotExist:
+                raise Dataset.DoesNotExist
                         
     def delete(self):
         with SQLDB.i.transaction() as cur:
