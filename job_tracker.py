@@ -22,7 +22,7 @@ class JobTrackerThread(Thread):
                               stderr=subprocess.PIPE)
 
         stdout, stderr = po.communicate(self.job.get_stdin_data())
-        
+
         if len(stdout) == 0: stdout = None
         if len(stderr) == 0: stderr = None
         

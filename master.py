@@ -4,6 +4,7 @@ from sjesta.db import SQLDB
 from sjesta.job_tracker import JobTrackerThread 
 from sjesta.objects import Job
 
+
 class SjestaThread(BaseThread, Monitor):
     def __init__(self):
         BaseThread.__init__(self)
@@ -53,8 +54,9 @@ class SjestaThread(BaseThread, Monitor):
                     continue
                 else:
                     time.sleep(self.scan_interval)
-                        
+            else:
+                time.sleep(self.scan_interval)
+
         # Wait for jobs to terminate
         while self.get_job_counter() > 0:
             time.sleep(5)
-            

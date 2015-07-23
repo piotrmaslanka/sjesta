@@ -46,11 +46,11 @@ class Job(object):
                 self.completed_on = int(time.time())
                 self.return_code = rc
                 # Allocate stdout and stderr if necessary
-                if stdout != None:
+                if stdout is not None:
                     cur.execute('INSERT INTO datasets (data) VALUES (%s) RETURNING id', 
                                                 (stdout, ))
                     self.stdout, = cur.fetchone()
-                if stderr != None:
+                if stderr is not None:
                     cur.execute('INSERT INTO datasets (data) VALUES (%s) RETURNING id', 
                                                 (stderr, ))
                     self.stderr, = cur.fetchone()
@@ -60,13 +60,15 @@ class Job(object):
                                WHERE id=%s''', 
                                     (self.stdout, self.stderr, self.completed_on,
                                      self.return_code, self.id))
-            
-                        
+
                         
 class Dataset(object):
     class DoesNotExist(Exception): pass
     
     def __init__(self, id):
+        if id is None:
+            raise Dataset.DoesNotExist
+
         self.id = id
         with SQLDB.i.transaction() as cur:
             cur.execute('SELECT data FROM datasets WHERE id=%s', (id, ))
@@ -78,5 +80,3 @@ class Dataset(object):
     def delete(self):
         with SQLDB.i.transaction() as cur:
             cur.execute('DELETE FROM datasets WHERE id=%s', (self.id, ))
-                        
-                        
