@@ -41,15 +41,15 @@ class SQLDB(object):
             if 'server closed the connection unexpectedly' in e.message: return True
             return False
 
-        with open('config.txt', 'rb') as cfg:
+        with open('sjesta.conf', 'rb') as cfg:
             js = json.load(cfg)
-        
+
         dbconn_args = {
             'database': str(js['db_name']),
             'host': str(js['db_host']),
             'password': str(js['db_password']),
             'user': str(js['db_user']),
-            'port': js['db_port']
+            'port': js['db_port'],
         }
         
         dd = DatabaseDefinition(

@@ -12,7 +12,7 @@ class SjestaThread(BaseThread, Monitor):
         
         self.active_jobs_counter = 0
 
-        with open('config.txt', 'rb') as cfg:
+        with open('sjesta.conf', 'rb') as cfg:
             js = json.load(cfg)
     
         self.scan_interval = js['scan_interval']

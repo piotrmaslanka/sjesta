@@ -19,7 +19,9 @@ class JobTrackerThread(Thread):
                               bufsize=-1,
                               stdin=subprocess.PIPE,
                               stdout=subprocess.PIPE,
-                              stderr=subprocess.PIPE)
+                              stderr=subprocess.PIPE,
+                              cwd=self.job.wd,
+                              env=self.job.env)
 
         stdout, stderr = po.communicate(self.job.get_stdin_data())
 

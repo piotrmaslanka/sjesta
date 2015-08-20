@@ -14,16 +14,29 @@ class Job(object):
         with SQLDB.i.transaction() as cur:
             cur.execute('''SELECT scheduled_by, scheduled_at, completed_on,
                                   return_code, description, started_at,
-                                  stdin, stdout, stderr, program, niceness
+                                  stdin, stdout, stderr, program, niceness,
+                                  wd, env
                            FROM jobs
                            WHERE id=%s''', (id, ))
             try:
                 self.scheduled_by, self.scheduled_at, self.completed_on, \
                 self.return_code, self.description, self.started_at, \
                 self.stdin, self.stdout, self.stderr, \
-                self.program, self.niceness = cur.fetchone()
+                self.program, self.niceness, self.wd, env = cur.fetchone()
             except TypeError:
                 raise Job.DoesNotExist
+
+            # parse env
+            if env is None:
+                self.env = None
+            else:
+                p = {}
+                env = list(env)
+                while len(env) > 1:
+                    p[env[0]] = env[1]
+                    env = env[2:]
+                self.env = p
+
                         
     def get_stdin_data(self):
         """Returns stdin data or None if no stdin"""
@@ -33,8 +46,7 @@ class Job(object):
             return None
         else:
             return stdin.data
-                    
-                        
+
     def enter_state(self, newstate, rc=None, stdout=None, stderr=None):
         with SQLDB.i.transaction() as cur:
             if newstate == Job.RUNNING:
